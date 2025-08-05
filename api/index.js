@@ -11,8 +11,6 @@ import { app } from "../socket/socket.js";
 import cors from "cors";
 
 dotenv.config();
-
-const app = express();
 const corsConfig = {
   origin: `${process.env.CLIENT_URL}`, credentials: true, methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]};
 app.options("/{*any}", cors(corsConfig)); // Pre-flight request for all routes
