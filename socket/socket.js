@@ -1,6 +1,6 @@
-import { Realtime } from 'ably';
+import Ably from 'ably/promises';
 
-const ably = new Realtime.Promise(process.env.ABLY_API_KEY);
+const ably = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
 
 const userChannelMap = {}; // {userId: channel}
 
@@ -13,7 +13,12 @@ const connectUser = async (userId) => {
 const disconnectUser = async (userId) => {
   const channel = userChannelMap[userId];
   if (channel) {
-    await channel.detach();
+    await new Promise((resolve, reject) => {
+      channel.detach((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
     delete userChannelMap[userId];
   }
 };
