@@ -1,6 +1,6 @@
-import Ably from 'ably/promises';
+import { Realtime } from 'ably';
 
-const ably = new Ably.Realtime.Promise(process.env.ABLY_API_KEY);
+const ably = new Realtime.Promise(process.env.ABLY_API_KEY);
 
 const userChannelMap = {}; // {userId: channel}
 
