@@ -7,7 +7,7 @@ import messageRoutes from "../routes/message.routes.js";
 import userRoutes from "../routes/user.routes.js";
 
 import connectToMongoDB from "../db/db.js";
-import { app } from "../socket/socket.js";
+import { server } from "../socket/socket.js";
 import cors from "cors";
 
 dotenv.config();
@@ -26,5 +26,10 @@ app.use("/api/users", userRoutes);
 
 
 
-connectToMongoDB();
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
+	connectToMongoDB();
+});
+
 export default app;
