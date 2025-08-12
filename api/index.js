@@ -6,7 +6,7 @@ import cors from "cors";
 import authRoutes from "../routes/auth.routes.js";
 import messageRoutes from "../routes/message.routes.js";
 import userRoutes from "../routes/user.routes.js";
-
+import ablyRoutes from "../routes/ably.routes.js";
 import connectToMongoDB from "../db/db.js";
 
 dotenv.config();
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
-
+app.use("/api", ablyRoutes);
 connectToMongoDB();
 
 export default app;

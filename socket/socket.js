@@ -1,11 +1,14 @@
 import * as Ably from 'ably';
 
-const ably = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
+const ablyRest = new Ably.Rest({ key: process.env.ABLY_API_KEY });
+
+const ablyRealtime = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
+
 
 const userChannelMap = {}; // {userId: channel}
 
 const connectUser = async (userId) => {
-  const channel = ably.channels.get(`chat:${userId}`);
+  const channel = ablyRealtime.channels.get(`chat:${userId}`);
   userChannelMap[userId] = channel;
   return channel;
 };
@@ -23,4 +26,4 @@ const disconnectUser = async (userId) => {
   }
 };
 
-export { connectUser, disconnectUser };
+export { ablyRest, ablyRealtime, connectUser, disconnectUser };
