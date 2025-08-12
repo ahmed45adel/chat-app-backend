@@ -1,4 +1,4 @@
-import { ablyRest } from "../socket/socket.js";
+import { ablyRealtime } from "../socket/socket.js";
 
 export const createTokenRequest = async (req, res) => {
   if (!req.user || !req.user._id) {
@@ -9,7 +9,11 @@ export const createTokenRequest = async (req, res) => {
 
   try {
     // Use REST instance to create Ably token request
-    const tokenRequest = await ablyRest.auth.createTokenRequest({ clientId });
+    const tokenRequest = await ablyRealtime.auth.createTokenRequest({
+      clientId,
+      capability: { '*': ["publish", "subscribe"] },
+      ttl: 3600000 // 1 hour expiration
+    });
     res.status(200).json(tokenRequest);
   } catch (error) {
     console.error("Error creating Ably token request:", error);
