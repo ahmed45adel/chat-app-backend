@@ -1,6 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
-import { connectUser } from "../socket/socket.js";
+import { ablyRest } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
 	try {
@@ -31,8 +31,9 @@ export const sendMessage = async (req, res) => {
 		await Promise.all([conversation.save(), newMessage.save()]);
 
 		// Ably FUNCTIONALITY
-		const channel = await connectUser(receiverId);
-		channel.publish("newMessage", newMessage);
+		// Get the channel for the receiver using the REST client and publish the message.
+		const channel = ablyRest.channels.get(`chat:${receiverId.toString()}`);
+		await channel.publish("newMessage", newMessage);
 
 		res.status(201).json(newMessage);
 	} catch (error) {
