@@ -1,6 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
-import { ablyRest } from "../socket/socket.js";
+import { ablyRealtime } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
 	try {
@@ -32,7 +32,7 @@ export const sendMessage = async (req, res) => {
 
 		// Ably FUNCTIONALITY
 		// Get the channel for the receiver using the REST client and publish the message.
-		const channel = ablyRest.channels.get(`chat:${receiverId.toString()}`);
+		const channel = ablyRealtime.channels.get(`chat:${receiverId.toString()}`);
 		await channel.publish("newMessage", newMessage);
 
 		res.status(201).json(newMessage);
