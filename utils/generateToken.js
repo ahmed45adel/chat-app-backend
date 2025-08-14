@@ -7,7 +7,7 @@ const generateTokenAndSetCookie = (userId, res) => {
 
 	res.cookie("chat-user", token, {
 		maxAge: 15 * 24 * 60 * 60 * 1000, // MS
-		httpOnly: false, 
+		httpOnly: true, 
 		sameSite: "none", // CSRF attacks cross-site request forgery attacks
 		secure: process.env.NODE_ENV === "production",
 		secure: true,
