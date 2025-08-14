@@ -1,9 +1,9 @@
 import { ablyRealtime } from "../socket/socket.js";
 
 export const createTokenRequest = async (req, res) => {
-  if (!req.user || !req.user._id) {
-    return res.status(401).json({ error: "Unauthorized - User not authenticated" });
-  }
+  // if (!req.user || !req.user._id) {
+  //   return res.status(401).json({ error: "Unauthorized - User not authenticated" });
+  // }
 
   const clientId = req.user._id.toString();
 
