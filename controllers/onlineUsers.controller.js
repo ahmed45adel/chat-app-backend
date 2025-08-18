@@ -29,3 +29,7 @@ export const userDisconnected = (req, res) => {
   publishOnlineUsers();
   res.status(200).json({ success: true });
 };
+
+export const getOnlineUsers = (req, res) => {
+  res.status(200).json({ onlineUsers: Array.from(onlineUsers) });
+};
