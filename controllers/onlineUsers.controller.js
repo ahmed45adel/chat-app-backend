@@ -12,6 +12,7 @@ const publishOnlineUsers = () => {
 
 // Handle user connection
 export const userConnected = (req, res) => {
+  console.log(req)
   const userId = req.body.userId;
   if (!userId) return res.status(400).json({ error: "User ID is required" });
 
