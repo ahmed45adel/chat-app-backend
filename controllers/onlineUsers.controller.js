@@ -4,10 +4,8 @@ const onlineUsers = new Set();
 
 // Publishing online users list to all users
 const publishOnlineUsers = () => {
-  onlineUsers.forEach(userId => {
-    const channel = ablyRealtime.channels.get(`chat:${userId}`);
-    channel.publish('getOnlineUsers', Array.from(onlineUsers));
-  });
+  const channel = ablyRealtime.channels.get("chat:global"); 
+  channel.publish("getOnlineUsers", Array.from(onlineUsers)); 
 };
 
 // Handle user connection
