@@ -24,6 +24,15 @@ app.options("/{*any}", cors(corsConfig));
 app.use(cors(corsConfig));
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
+app.use(async (req, res, next) => {
+  try {
+    await connectToMongoDB();
+    next();
+  } catch (error) {
+    console.error("DB connection error:", error);
+    res.status(500).json({ message: "Database connection error" });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send("Server is running");
@@ -33,6 +42,5 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api", ablyRoutes);
 app.use("/api", onlineUsersRoutes);
-connectToMongoDB();
 
 export default app;
